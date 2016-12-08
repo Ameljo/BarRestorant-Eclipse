@@ -22,37 +22,38 @@ public class Tables extends JFrame
 	// Konstruktori i Tabeles
 	
 	public void Tables()
-	{  //ameljo a mundesh me dal pak prej pc edhe hin mas 2 min sa t heku dica se u cmenda rri nfrik
-    super("Bar Restorant");
-    setLayout( new FlowLayout());
-	colorJList = new JList( produkte );
-	
-	colorJList.setVisibleRowCount( 4 );
-	colorJList.setSelectionMode(
-	ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
-	add( new JScrollPane( colorJList ) );
-	copyJButton = new JButton( "Shfaq produktet" );
-	
-	copyJButton.addActionListener(
-	new ActionListener() // klasa e brendshme anonime
-	{
-	// mbajtja e butonit
-	public void actionPerformed( ActionEvent event )
-	{
-	// shtimi i ngjyres ne copyJList
-	copyJList.setListData( colorJList.getSelectedValuesList().toArray() );
+	{  
+	    super("Bar Restorant");
+	    setLayout( new FlowLayout());
+		colorJList = new JList( produkte );
+		
+		colorJList.setVisibleRowCount( 4 );
+		colorJList.setSelectionMode(
+		ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+		add( new JScrollPane( colorJList ) );
+		copyJButton = new JButton( "Shfaq produktet" );
+		
+		copyJButton.addActionListener(
+		new ActionListener() // klasa e brendshme anonime
+		{
+		// mbajtja e butonit
+		public void actionPerformed( ActionEvent event )
+		{
+		// shtimi i ngjyres ne copyJList
+		copyJList.setListData( colorJList.getSelectedValuesList().toArray() );
+		}
+		}
+		
+		);
+		
+		add( copyJButton );
+		copyJList = new JList();
+		copyJList.setVisibleRowCount( 5 );
+		copyJList.setFixedCellWidth( 100 );
+		copyJList.setFixedCellHeight( 15 );
+		copyJList.setSelectionMode(
+		ListSelectionModel.SINGLE_INTERVAL_SELECTION );
+		add( new JScrollPane( copyJList ) );
 	}
-	}
-	
-	);
-	
-	add( copyJButton );
-	copyJList = new JList();
-	copyJList.setVisibleRowCount( 5 );
-	copyJList.setFixedCellWidth( 100 );
-	copyJList.setFixedCellHeight( 15 );
-	copyJList.setSelectionMode(
-	ListSelectionModel.SINGLE_INTERVAL_SELECTION );
-	add( new JScrollPane( copyJList ) );
 	}
 	}
