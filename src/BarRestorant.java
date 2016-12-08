@@ -1,11 +1,16 @@
+import javax.swing.JFrame;
+
+import UI.Tables;
 
 public class BarRestorant {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//Test
-		System.out.print("Testim");
-		System.out.print("Testim 2");
+		Tables tables = new Tables();
+		tables.setDefaultCloseOperation(
+		JFrame.EXIT_ON_CLOSE );
+		tables.setSize( 350, 150 );
+		tables.setVisible( true );
 	}
 
 }

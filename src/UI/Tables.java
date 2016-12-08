@@ -21,9 +21,9 @@ public class Tables extends JFrame
 	
 	// Konstruktori i Tabeles
 	
-	public void Tabeles()
-	{
-    super( "Bar Restorant" );
+	public void Tables()
+	{  //ameljo a mundesh me dal pak prej pc edhe hin mas 2 min sa t heku dica se u cmenda rri nfrik
+    super("Bar Restorant");
     setLayout( new FlowLayout());
 	colorJList = new JList( produkte );
 	
