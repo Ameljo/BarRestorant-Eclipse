@@ -1,5 +1,7 @@
 package menagment;
 
-public class DatabaseCreator {
+public class DatabaseCreator 
+{
 
+	//Test
 }
