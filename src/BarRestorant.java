@@ -5,6 +5,7 @@ public class BarRestorant {
 		// TODO Auto-generated method stub
 		//Test
 		System.out.print("Testim");
+		System.out.print("Testim 2");
 	}
 
 }
