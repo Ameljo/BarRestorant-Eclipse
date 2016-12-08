@@ -9,6 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+/*********
+ * Filloni me tabelen e pamjes se para ku ka mu zgjedh taboline, ka me pas 
+ * putonat per me shtu porosi edhe ka mu hap i dritare e re sa zgjedhet i tavoline!
+ * @author Ameljo
+ *
+ */
 public class Tables extends JFrame
 {
 	private JList colorJList; // lista qe porosite e tavolines
@@ -21,7 +27,7 @@ public class Tables extends JFrame
 	
 	// Konstruktori i Tabeles
 	
-	public void Tables()
+	public Tables()
 	{  
 	    super("Bar Restorant");
 	    setLayout( new FlowLayout());
@@ -55,5 +61,4 @@ public class Tables extends JFrame
 		ListSelectionModel.SINGLE_INTERVAL_SELECTION );
 		add( new JScrollPane( copyJList ) );
 	}
-	}
-	}
+}
