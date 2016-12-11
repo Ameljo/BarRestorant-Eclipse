@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -31,7 +33,7 @@ public class DatabaseCreator
 		File file = createFile("WaiterDatabase");
 		if(file == null)
 		{
-			System.out.print("Could not create database");
+			System.out.print("Could not create WaiterDatabase");
 			return; //ndal funksionin nese nuk mund te krijohet file
 		}
 		///test
@@ -44,13 +46,13 @@ public class DatabaseCreator
 			styleWaiter(workbook);
 			workbook.write(writeDatabase);
 			writeDatabase.close();
-			System.out.print("sukses!!!");
+			System.out.println("Sukses WaiterDatabase!!!");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("Could not find file to write!");
+			System.out.println("Could not find WaiterDatabase to write!");
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Could not write database!");
+			System.out.println("Could not write WaiterDatabase!");
 		}
 		
 	}
@@ -60,7 +62,7 @@ public class DatabaseCreator
 		File file = createFile("TableDatabase");
 		if (file == null)
 		{
-			System.out.println("Could not create database!");
+			System.out.println("Could not create TableDatabase!");
 			return;
 		}
 		
@@ -70,18 +72,82 @@ public class DatabaseCreator
 		try
 		{
 			FileOutputStream writeDatabase = new FileOutputStream(file);
+			styleTables(workbook);
 			workbook.write(writeDatabase);
-			System.out.println("Sukses!!!");
+			System.out.println("Sukses TableDatabase!!!");
 		}
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
-			System.out.println("Could not find file to write!");
+			System.out.println("Could not find TableDatabase to write!");
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-			System.out.println("Could not write database!");
+			System.out.println("Could not write TableDatabase!");
+		}
+	}
+	
+	public void createDepoDatabase()
+	{
+		File file = createFile("DepoDatabase");
+		if (file == null)
+		{
+			System.out.println("Could not create DepoDatabase!!!");
+			return; 
+		}
+		
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		workbook.createSheet();
+		try
+		{
+			FileOutputStream writeDatabase = new FileOutputStream(file);
+			styleDepo(workbook);
+			workbook.write(writeDatabase);
+			System.out.println("Sukses DepoDatabase!!!");
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not find file DepoDatabase to write!");
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not write DepoDatabase!");
+		}
+	}
+	
+	public void createMonthlyReport()
+	{
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("MMMM-yyyy");
+		File file = createFile(format.format(date));
+		if(file == null)
+		{
+			System.out.println("Could not create MonthlyReport");
+			return;
+		}
+		
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		workbook.createSheet();
+		
+		try
+		{
+			FileOutputStream writeDatabase = new FileOutputStream(file);
+			styleMonthlyReport(workbook);
+			workbook.write(writeDatabase);
+			System.out.println("Sukses MonthlyReport!!!");
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not find MonthlyReport");
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not find MonthlyReport");
 		}
 	}
 	
@@ -108,25 +174,9 @@ public class DatabaseCreator
 		return file;
 	}
 	
-	
-	/*******
-	 * Funksion ndihmes per stilim 
-	 * @param workbook database qe do te stilohet
-	 * 
-	 * Ameljo Gjoni
-	 */
-	private void styleWaiter(XSSFWorkbook workbook)
+	private XSSFCellStyle createStyle(XSSFWorkbook workbook)
 	{
-		  XSSFSheet sheet = workbook.getSheetAt(0);
-	      Row row = sheet.getRow(0);
-	      XSSFCellStyle style = workbook.createCellStyle();
-	      if (row == null)
-	          row = sheet.createRow(0);
-	      Cell cell;
-	      //Resize columns
-	      sheet.setColumnWidth(0, 7000);
-	      sheet.setColumnWidth(1, 7000);
-	   
+		  XSSFCellStyle style = workbook.createCellStyle();
 	      //color and name first cells;
 	      style.setFillForegroundColor(new XSSFColor(Color.YELLOW));
 	      style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
@@ -138,6 +188,85 @@ public class DatabaseCreator
 	      style.setRightBorderColor(IndexedColors.BLUE.getIndex());
 	      style.setBorderTop(XSSFCellStyle.BORDER_MEDIUM_DASHED);
 	      style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+	      
+	      return style;
+	}
+	
+	private void styleDepo(XSSFWorkbook workbook)
+	{
+		XSSFSheet sheet = workbook.getSheetAt(0);
+	      Row row = sheet.getRow(0);
+	      XSSFCellStyle style = createStyle(workbook);
+	      if (row == null)
+	          row = sheet.createRow(0);
+	      Cell cell;
+	      //Resize columns
+	      sheet.setColumnWidth(0, 7000);
+	      sheet.setColumnWidth(1, 7000);
+	      sheet.setColumnWidth(2, 7000);
+	   
+	      cell = row.createCell(0);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Produkti");
+	      cell = row.createCell(1);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Sasia");
+	      cell = row.createCell(2);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Cmimi");
+	}
+	
+	private void styleMonthlyReport(XSSFWorkbook workbook)
+	{
+		XSSFSheet sheet = workbook.getSheetAt(0);
+	      Row row = sheet.getRow(0);
+	      XSSFCellStyle style = createStyle(workbook);
+	      if (row == null)
+	          row = sheet.createRow(0);
+	      Cell cell;
+	      //Resize columns
+	      sheet.setColumnWidth(0, 7000);
+	      sheet.setColumnWidth(1, 7000);
+	      sheet.setColumnWidth(2, 7000);
+	      sheet.setColumnWidth(3, 9000);
+	      sheet.setColumnWidth(4, 14000);
+
+	      cell = row.createCell(0);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Produkti");
+	      cell = row.createCell(1);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Cmimi");
+	      cell = row.createCell(2);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Sasia");
+	      cell = row.createCell(3);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Data");
+	      cell = row.createCell(4);
+	      cell.setCellStyle(style);
+	      cell.setCellValue("Kamarieri");
+	}
+	
+	
+	/*******
+	 * Funksion ndihmes per stilim 
+	 * @param workbook database qe do te stilohet
+	 * 
+	 * Ameljo Gjoni
+	 */
+	private void styleWaiter(XSSFWorkbook workbook)
+	{
+		  XSSFSheet sheet = workbook.getSheetAt(0);
+	      Row row = sheet.getRow(0);
+	      XSSFCellStyle style = createStyle(workbook);
+	      if (row == null)
+	          row = sheet.createRow(0);
+	      Cell cell;
+	      //Resize columns
+	      sheet.setColumnWidth(0, 7000);
+	      sheet.setColumnWidth(1, 7000);
+	   
 	      cell = row.createCell(0);
 	      cell.setCellStyle(style);
 	      cell.setCellValue("Emri");
@@ -145,29 +274,19 @@ public class DatabaseCreator
 	      cell.setCellStyle(style);
 	      cell.setCellValue("Mbiemri");
 	}
+	
 
 	private void styleTables(XSSFWorkbook workbook)
 	{
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		Row row = sheet.getRow(0);
-	    XSSFCellStyle style = workbook.createCellStyle();
+	    XSSFCellStyle style = createStyle(workbook);
 	    if (row == null)
 	        row = sheet.createRow(0);
 	    Cell cell;
 	    //Resize columns
 	    sheet.setColumnWidth(0, 3000);
 	 
-	    //color and name first cells;
-	    style.setFillForegroundColor(new XSSFColor(Color.YELLOW));
-	    style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-	    style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
-	    style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-	    style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
-	    style.setLeftBorderColor(IndexedColors.GREEN.getIndex());
-	    style.setBorderRight(XSSFCellStyle.BORDER_THIN);
-	    style.setRightBorderColor(IndexedColors.BLUE.getIndex());
-	    style.setBorderTop(XSSFCellStyle.BORDER_MEDIUM_DASHED);
-	    style.setTopBorderColor(IndexedColors.BLACK.getIndex());
 	    cell = row.createCell(0);
 	    cell.setCellStyle(style);
 	    cell.setCellValue("Numri");

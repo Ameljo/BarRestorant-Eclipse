@@ -16,7 +16,10 @@ public class BarRestorant {
 		*/
 		
 		DatabaseCreator creator = new DatabaseCreator();
-		creator.createTableDatabase();
+		//creator.createTableDatabase();
+		creator.createMonthlyReport();
+		//creator.createWaiterDatabase();
+		//creator.createDepoDatabase();
 	}
 
 }
