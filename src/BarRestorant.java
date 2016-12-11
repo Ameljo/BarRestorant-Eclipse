@@ -16,7 +16,7 @@ public class BarRestorant {
 		*/
 		
 		DatabaseCreator creator = new DatabaseCreator();
-		creator.createWaiterDatabase();
+		creator.createTableDatabase();
 	}
 
 }

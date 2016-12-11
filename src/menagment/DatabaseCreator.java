@@ -34,7 +34,7 @@ public class DatabaseCreator
 			System.out.print("Could not create database");
 			return; //ndal funksionin nese nuk mund te krijohet file
 		}
-		
+		///test
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		workbook.createSheet();
 		try 
@@ -53,6 +53,36 @@ public class DatabaseCreator
 			System.out.println("Could not write database!");
 		}
 		
+	}
+	
+	public void createTableDatabase()
+	{
+		File file = createFile("TableDatabase");
+		if (file == null)
+		{
+			System.out.println("Could not create database!");
+			return;
+		}
+		
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		workbook.createSheet();
+		
+		try
+		{
+			FileOutputStream writeDatabase = new FileOutputStream(file);
+			workbook.write(writeDatabase);
+			System.out.println("Sukses!!!");
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not find file to write!");
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not write database!");
+		}
 	}
 	
 	/***
@@ -114,7 +144,32 @@ public class DatabaseCreator
 	      cell = row.createCell(1);
 	      cell.setCellStyle(style);
 	      cell.setCellValue("Mbiemri");
+	}
 
-	  
+	private void styleTables(XSSFWorkbook workbook)
+	{
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		Row row = sheet.getRow(0);
+	    XSSFCellStyle style = workbook.createCellStyle();
+	    if (row == null)
+	        row = sheet.createRow(0);
+	    Cell cell;
+	    //Resize columns
+	    sheet.setColumnWidth(0, 3000);
+	 
+	    //color and name first cells;
+	    style.setFillForegroundColor(new XSSFColor(Color.YELLOW));
+	    style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+	    style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+	    style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+	    style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+	    style.setLeftBorderColor(IndexedColors.GREEN.getIndex());
+	    style.setBorderRight(XSSFCellStyle.BORDER_THIN);
+	    style.setRightBorderColor(IndexedColors.BLUE.getIndex());
+	    style.setBorderTop(XSSFCellStyle.BORDER_MEDIUM_DASHED);
+	    style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+	    cell = row.createCell(0);
+	    cell.setCellStyle(style);
+	    cell.setCellValue("Numri");
 	}
 }
