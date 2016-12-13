@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 
+import restorant.Table;
 import menagment.DatabaseCreator;
 import UI.Tables;
 
@@ -15,11 +16,10 @@ public class BarRestorant {
 		tables.setVisible( true );
 		*/
 		
-		DatabaseCreator creator = new DatabaseCreator();
-		//creator.createTableDatabase();
-		creator.createMonthlyReport();
-		//creator.createWaiterDatabase();
-		//creator.createDepoDatabase();
+		Table tavoline = new Table();
+		tavoline.merrPorosi("Kola", 3, 100);
+		tavoline.merrPorosi("kafe", 2, 70);
+		tavoline.nxirrFatur();
 	}
 
 }
