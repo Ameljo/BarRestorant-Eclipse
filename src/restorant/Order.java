@@ -1,7 +1,16 @@
 package restorant;
 
 import java.util.ArrayList;
-
+/*********************************
+ * Klasa e porosis
+ * Porosia do te kete nje liste me produkte
+ * Do te jete ne gjendje te ktheje keto produkte, te shtoje,
+ * te heqe dhe te jape cmimin e tyre.
+ * 
+ * 
+ * @author Ameljo Gjoni
+ *
+ */
 public class Order 
 {
 	ArrayList<Product> produktet;
@@ -37,6 +46,18 @@ public class Order
 	
 	public void addOrder(Product produkt)
 	{
-		this.produktet.add(produkt);
+		if(produkt != null)
+			this.produktet.add(produkt);
+	}
+	
+	public void removeOrder(String name)
+	{
+		for (int i = 0; i < produktet.size(); i++)
+		{
+			if (produktet.get(i).getEmri() == name)
+			{
+				produktet.remove(i);
+			}
+		}
 	}
 }

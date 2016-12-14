@@ -13,7 +13,13 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
 
-
+/*********************************
+ * Klasa qe permbajne funksionet te cilet krijojne Database te ndryshme
+ * 
+ * 
+ * @author Ameljo Gjoni
+ *
+ */
 public class DatabaseCreator 
 {
 	private String path; //Path for relative path
@@ -120,8 +126,11 @@ public class DatabaseCreator
 	
 	public void createMonthlyReport()
 	{
+		//Merr daten e sotme
 		Date date = new Date();
+		//Formato daten e forme stringu (Muaji-1999)
 		SimpleDateFormat format = new SimpleDateFormat("MMMM-yyyy");
+		//Vendos daten si emer te raportit
 		File file = createFile(format.format(date));
 		if(file == null)
 		{
@@ -174,6 +183,13 @@ public class DatabaseCreator
 		return file;
 	}
 	
+	
+	/******************
+	 * Funksion ndihmes per stilimin e database
+	 * 
+	 * @param workbook
+	 * Ameljo Gjoni
+	 */
 	private XSSFCellStyle createStyle(XSSFWorkbook workbook)
 	{
 		  XSSFCellStyle style = workbook.createCellStyle();

@@ -33,6 +33,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.Component;
 
 import menagment.Exctrator;
+import menagment.Formatter;
+import menagment.Raport;
 import restorant.Table;
 import net.miginfocom.swing.MigLayout;
 
@@ -64,32 +66,7 @@ public class Interface extends JFrame {
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPane.add(panel);
 		
-		ActionListener takeOrder = new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				 try {
-			            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-			                if ("Nimbus".equals(info.getName())) {
-			                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-			                    break;
-			                }
-			            }
-			        } catch (Exception ex)
-				 {
-			        	ex.printStackTrace();
-				 }
-
-			        java.awt.EventQueue.invokeLater(new Runnable() {
-			            public void run() {
-			                new fq2().setVisible(true);
-			            }
-			        });
-			}
-			
-		};
+	
 		panel.setLayout(new GridLayout(0, 5, 0, 0));
 		
 		JLabel lblNewLabel = new JLabel("Tavolinat");
@@ -115,16 +92,85 @@ public class Interface extends JFrame {
 		panel_1.setBounds(568, 97, 243, 401);
 		contentPane.add(panel_1);
 		
-		JButton btnHiqshtoTavolina = new JButton("Hiq/Shto Tavolina");
-		panel_1.add(btnHiqshtoTavolina);
-		
-		JButton btnHiqshtoKamarier = new JButton("Hiq/Shto Kamarier");
-		panel_1.add(btnHiqshtoKamarier);
-		
+		/***********************
+		 * Butoni qe tregon raportin mujor
+		 * 
+		 * Hap nje intance te re fature duke marre si parameter
+		 * raportin mujor.
+		 * Ameljo Gjoni
+		 */
 		JButton btnPrintoRaportinMujor = new JButton("Printo raportin mujor");
+		btnPrintoRaportinMujor.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				Raport raport = new Raport();
+				
+				try {
+		            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+		            {
+		                if ("Nimbus".equals(info.getName())) 
+		                {
+		                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		                    break;
+		                }
+		            }
+		        } catch (Exception ex)
+			 {
+		        	ex.printStackTrace();
+			 }
+
+		        java.awt.EventQueue.invokeLater(new Runnable() 
+		        {
+		            public void run() 
+		            {
+		            	new fature(raport.getRaportMujor()).setVisible(true);;
+		            }
+		        });
+			}
+		});
 		panel_1.add(btnPrintoRaportinMujor);
 		
+		
+		
+		/*************************
+		 * Button qe tregon raportin ditor
+		 * Vepron ne menyre te ngjashme me butonin e raportit
+		 * mujor
+		 * 
+		 * Ameljo Gjoni
+		 */
 		JButton btnPrintoRaportinDitor = new JButton("Printo raportin ditor");
+		btnPrintoRaportinDitor.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+
+				Raport raport = new Raport();
+				
+				try {
+		            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+		            {
+		                if ("Nimbus".equals(info.getName())) 
+		                {
+		                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		                    break;
+		                }
+		            }
+		        } catch (Exception ex)
+			 {
+		        	ex.printStackTrace();
+			 }
+
+		        java.awt.EventQueue.invokeLater(new Runnable() 
+		        {
+		            public void run() 
+		            {
+		            	new fature(raport.getRaportDitor()).setVisible(true);;
+		            }
+		        });
+			}
+		});
 		panel_1.add(btnPrintoRaportinDitor);
 		
 		JLabel lblNewLabel_1 = new JLabel("Menaxhimi");
@@ -142,9 +188,41 @@ public class Interface extends JFrame {
 		ArrayList<JButton> buttons = new ArrayList<JButton>();
 		ArrayList<Table> tables = new Exctrator().getTables();
 		
+		//Listener per marrjen e porosis.
+		//Sherben per te hapur nderfaqene  produkteve
+		ActionListener takeOrder = new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				 try {
+			            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+			                if ("Nimbus".equals(info.getName())) {
+			                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+			                    break;
+			                }
+			            }
+			        } catch (Exception ex)
+				 {
+			        	ex.printStackTrace();
+				 }
+
+			        java.awt.EventQueue.invokeLater(new Runnable() {
+			            public void run() {
+			            	JButton btn = (JButton) e.getSource();
+			            	int tabNumber = Integer.parseInt(btn.getActionCommand());
+			                new tableUI((JButton) e.getSource(), tables.get(tabNumber) ).setVisible(true);
+			            }
+			        });
+			}
+			
+		};
+		
 		for (int i = 0; i < tables.size(); i++)
 		{
 			buttons.add(new JButton(tables.get(i).getNumer() + ""));
+			buttons.get(i).setActionCommand(i + "");
 			buttons.get(i).setForeground(new Color(0, 0, 0));
 			buttons.get(i).setBackground(Color.GREEN);
 			buttons.get(i).addActionListener(takeOrder);

@@ -1,25 +1,33 @@
+import java.awt.EventQueue;
+
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import restorant.Table;
 import menagment.DatabaseCreator;
-import UI.Tables;
+import UI.Interface;
 
 public class BarRestorant {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		/*
-		Tables tables = new Tables();
-		tables.setDefaultCloseOperation(
-		JFrame.EXIT_ON_CLOSE );
-		tables.setSize( 350, 150 );
-		tables.setVisible( true );
-		*/
+	public static void main(String[] args) 
+	{
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		
-		Table tavoline = new Table();
-		tavoline.merrPorosi("Kola", 3, 100);
-		tavoline.merrPorosi("kafe", 2, 70);
-		tavoline.nxirrFatur();
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Interface frame = new Interface();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }
